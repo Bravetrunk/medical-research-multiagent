@@ -41,7 +41,7 @@ Claude Code รองรับการเชื่อมต่อได้ 3 �
 รันคำสั่งเพียงครั้งเดียวใน Terminal เพื่อเพิ่ม Medical Research เข้าเป็นเครื่องมือประจำของ Claude Code:
 
 ```bash
-claude mcp add medical-research -- npx -y github:Bravetrunk/medical-research-multiagent medical-research-mcp
+claude mcp add medical-research -- npx -y -p github:Bravetrunk/medical-research-multiagent medical-research-mcp
 ```
 
 เมื่อเชื่อมต่อแล้ว Claude Code จะมี Tool 5 ตัวใช้งานได้อัตโนมัติ:
@@ -88,6 +88,7 @@ Antigravity จะตรวจจับและ Activate สกิล `medical-
       "command": "npx",
       "args": [
         "-y",
+        "-p",
         "github:Bravetrunk/medical-research-multiagent",
         "medical-research-mcp"
       ]
@@ -112,7 +113,7 @@ Antigravity จะตรวจจับและ Activate สกิล `medical-
 3. คลิก **+ Add New MCP Server**
    - **Name**: `medical-research`
    - **Type**: `command`
-   - **Command**: `npx -y github:Bravetrunk/medical-research-multiagent medical-research-mcp`
+   - **Command**: `npx -y -p github:Bravetrunk/medical-research-multiagent medical-research-mcp`
 4. เมื่อสถานะขึ้นไฟสีเขียว Cursor Composer และ Chat จะสามารถเรียกฟังก์ชันคำนวณและออกแบบ Protocol ทางการแพทย์ได้ทันที
 
 ### วิธีที่ 4.2: ใช้ Cursor Rules (`.cursorrules` & `.cursor/rules/`)
@@ -130,6 +131,7 @@ Antigravity จะตรวจจับและ Activate สกิล `medical-
       "command": "npx",
       "args": [
         "-y",
+        "-p",
         "github:Bravetrunk/medical-research-multiagent",
         "medical-research-mcp"
       ]
@@ -200,6 +202,7 @@ print(result)
       "command": "npx",
       "args": [
         "-y",
+        "-p",
         "github:Bravetrunk/medical-research-multiagent",
         "medical-research-mcp"
       ]
@@ -218,6 +221,7 @@ print(result)
       "command": "npx",
       "args": [
         "-y",
+        "-p",
         "github:Bravetrunk/medical-research-multiagent",
         "medical-research-mcp"
       ],

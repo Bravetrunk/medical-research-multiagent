@@ -5,6 +5,7 @@
   "main": "./index.js",
   "types": "./index.d.ts",
   "bin": {
+    "medical-research-multiagent": "./bin/cli.js",
     "medical-research": "./bin/cli.js",
     "med-research": "./bin/cli.js",
     "medical-research-mcp": "./bin/mcp-server.js"

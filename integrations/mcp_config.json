@@ -4,6 +4,7 @@
       "command": "npx",
       "args": [
         "-y",
+        "-p",
         "github:Bravetrunk/medical-research-multiagent",
         "medical-research-mcp"
       ],

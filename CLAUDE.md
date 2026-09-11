@@ -30,7 +30,7 @@ pytest tests/
 Claude Code can connect to this repository as an MCP tool server:
 ```bash
 # Add MCP server to Claude Code
-claude mcp add medical-research -- npx -y github:Bravetrunk/medical-research-multiagent medical-research-mcp
+claude mcp add medical-research -- npx -y -p github:Bravetrunk/medical-research-multiagent medical-research-mcp
 ```
 
 ---

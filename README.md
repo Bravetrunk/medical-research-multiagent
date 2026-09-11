@@ -65,7 +65,7 @@ python cli/main.py "Your clinical research question"
 ### 🔹 Claude Code (Anthropic CLI)
 เชื่อมต่อผ่าน Model Context Protocol (MCP) ด้วยคำสั่งเดียว:
 ```bash
-claude mcp add medical-research -- npx -y github:Bravetrunk/medical-research-multiagent medical-research-mcp
+claude mcp add medical-research -- npx -y -p github:Bravetrunk/medical-research-multiagent medical-research-mcp
 ```
 *(ใน Repo มีไฟล์ [`CLAUDE.md`](./CLAUDE.md) พร้อมใช้งาน ทำให้ Claude Code รันคำนวณและตรวจสอบระเบียบวิธีวิจัยได้อัตโนมัติ)*
 
@@ -80,7 +80,7 @@ Antigravity จะตรวจจับคำถามด้าน Clinical Epid
 ### 🔹 Cursor & Windsurf
 1. ใน **Cursor Settings** $\to$ **Features** $\to$ **MCP** $\to$ **+ Add New MCP Server**:
    - Name: `medical-research`
-   - Command: `npx -y github:Bravetrunk/medical-research-multiagent medical-research-mcp`
+   - Command: `npx -y -p github:Bravetrunk/medical-research-multiagent medical-research-mcp`
 2. มีไฟล์ [`.cursorrules`](./.cursorrules), [`.cursor/rules/medical-research.mdc`](./.cursor/rules/medical-research.mdc) และ [`.windsurfrules`](./.windsurfrules) รวมอยู่ใน Repo เรียบร้อยแล้ว
 
 ### 🔹 xAI Grok & OpenAI Codex / ChatGPT
