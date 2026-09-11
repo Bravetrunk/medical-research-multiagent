@@ -9,7 +9,56 @@
 
 ---
 
-## 🏗️ 1. สถาปัตยกรรม Multi-Agent (Multi-Agent Architecture)
+## 🚀 1. ติดตั้งและใช้งานผ่าน npm ได้ทันที (Zero-Dependency Node.js & npx)
+
+**ไม่ต้องใช้ `pip install` หรือตั้งค่า Python venv ใดๆ!** ระบบรองรับการติดตั้งและรันผ่าน `npm` / `npx` โดยตรงจาก GitHub:
+
+### วิธีที่ 1: รันด่วนทันทีผ่าน `npx` (ไม่ต้องติดตั้งลงเครื่อง)
+```bash
+npx github:Bravetrunk/medical-research-multiagent "In adult patients with heart failure, does dapagliflozin reduce cardiovascular death compared with standard of care?"
+```
+
+### วิธีที่ 2: ติดตั้งผ่าน `npm install` จาก GitHub
+```bash
+# ติดตั้งไว้ในโปรเจกต์ของคุณ
+npm install github:Bravetrunk/medical-research-multiagent
+
+# หรือติดตั้งเป็นคำสั่งระดับเครื่อง (Global CLI)
+npm install -g github:Bravetrunk/medical-research-multiagent
+
+# เรียกใช้คำสั่งได้ทันที
+medical-research "In patients with CKD, does SGLT2i reduce ESRD?"
+```
+
+### วิธีที่ 3: เรียกใช้เป็นไลบรารีใน Node.js / TypeScript
+```javascript
+const { MedicalResearchOrchestrator } = require('medical-research-multiagent');
+
+const orchestrator = new MedicalResearchOrchestrator();
+const state = orchestrator.runPipeline(
+  "In adult type 2 diabetes patients, does semaglutide reduce stroke compared with placebo?"
+);
+
+console.log(state.pico);
+console.log(state.studyDesign);
+console.log(state.biostatsPlan);
+console.log(state.markdownReport);
+```
+
+---
+
+## 🐍 2. รองรับ Python SDK ด้วยเช่นกัน (Dual-Stack)
+
+สำหรับผู้ใช้งานสาย Python ยังคงสามารถใช้งาน CLI และโมดูล Python ได้ตามปกติ:
+```bash
+git clone https://github.com/Bravetrunk/medical-research-multiagent.git
+cd medical-research-multiagent
+python cli/main.py "Your clinical research question"
+```
+
+---
+
+## 🏗️ 3. สถาปัตยกรรม Multi-Agent (Multi-Agent Architecture)
 
 ระบบประกอบด้วย 7 บทบาทเอเจนต์เฉพาะทาง ทำงานร่วมกันเป็นกราฟวงจรแบบมีทิศทาง (Directed Acyclic Workflow) ผ่าน **Research State Blackboard**:
 
@@ -35,7 +84,7 @@ graph TD
    - ประเมินความเป็นไปได้และคุณค่าของงานวิจัยด้วยเกณฑ์ **FINER**
 2. **`Study Design & Protocol Architect Agent`**:
    - เลือกรูปแบบการศึกษาที่เหมาะสมตามลำดับขั้นหลักฐาน EBM (RCT, Prospective/Retrospective Cohort, Case-Control, Diagnostic Cross-Sectional, Target Trial Emulation)
-   - วางระบบมาตรการป้องกันอคติ (Randomization, Allocation Concealment ด้วย SNOSE, Double-blinding, Intention-to-Treat)
+   - วางมาตรการป้องกันอคติ (Randomization, Allocation Concealment ด้วย SNOSE, Double-blinding, Intention-to-Treat)
 3. **`Biostatistics & Sample Size Planner Agent`**:
    - กำหนดเกณฑ์เลือกสถิติ Parametric vs. Non-parametric (t-test, ANOVA, Mann-Whitney, Kruskal-Wallis, Chi-Square, Fisher Exact, Kaplan-Meier, Cox Proportional Hazards)
    - คำนวณขนาดตัวอย่าง (Sample Size) ด้วยสูตรทางคณิตศาสตร์ที่แม่นยำ พร้อมบวกชดเชยการสูญหายระหว่างติดตาม (Dropout/Loss to Follow-up Buffer)
@@ -55,10 +104,20 @@ graph TD
 
 ---
 
-## 📁 2. โครงสร้างโฟลเดอร์โครงการ (Repository Structure)
+## 📁 4. โครงสร้างโฟลเดอร์โครงการ (Repository Structure)
 
 ```
 medical_research_multiagent/
+├── package.json                   # การตั้งค่าสำหรับ npm install และ bin CLI
+├── bin/
+│   └── cli.js                     # Node.js CLI executable (zero dependencies)
+├── lib/                           # Native Node.js Multi-Agent Implementation
+│   ├── calculators.js             # Biostats & Diagnostic calculators (Node.js)
+│   ├── agents.js                  # 7 Agents implementation in JavaScript
+│   └── engine.js                  # Node.js Orchestrator & State
+├── index.js                       # CommonJS Entrypoint
+├── index.d.ts                     # TypeScript Type Definitions
+├── test.js                        # Node.js Test Runner (100% Pass)
 ├── knowledge/                     # คลังความรู้ที่สกัดมาจาก Notion
 │   ├── clinical_epidemiology.json # ระบาดวิทยาคลินิก รูปแบบการวิจัย อคติ เกณฑ์ PICO
 │   ├── biostatistics_daniel.json  # สูตรสถิติและการเลือกการทดสอบ (Daniel 9th ed.)
@@ -66,89 +125,26 @@ medical_research_multiagent/
 │   ├── causal_inference_rwe.json  # Pearl Causal Ladder, DAG, Target Trial Emulation
 │   ├── reporting_guidelines.json  # CONSORT, STROBE, PRISMA, STARD, CASP
 │   └── notion_source_dump.md      # ข้อความฉบับเต็ม 815 KB จาก Notion
-├── core/                          # แกนหลักของระบบ
-│   ├── types.py                   # Pydantic Schemas กำหนด Data Contract
-│   ├── state.py                   # Blackboard Shared State
-│   ├── calculators.py             # ฟังก์ชันคำนวณสถิติและตัวชี้วัดความแม่นยำสูง
-│   └── engine.py                  # Multi-Agent Workflow Orchestrator
-├── agents/                        # คลาสของแต่ละเอเจนต์
-│   ├── base.py                    # ฐานรองรับทั้ง LLM (Gemini/OpenAI) และ Expert Engine
-│   ├── pico_agent.py
-│   ├── study_design_agent.py
-│   ├── biostats_agent.py
-│   ├── diagnostic_agent.py
-│   ├── causal_rwe_agent.py
-│   ├── appraisal_agent.py
-│   └── lead_methodologist.py
-├── tools/                         # เครื่องมือที่เอเจนต์เรียกใช้
-│   ├── sample_size_tool.py
-│   ├── diagnostic_eval_tool.py
-│   ├── dag_analyzer_tool.py
-│   ├── target_trial_tool.py
-│   └── appraisal_checklist_tool.py
-├── cli/
-│   └── main.py                    # คอมมานด์ไลน์อินเตอร์เฟซ (CLI with Rich UI)
-├── tests/                         # ชุด Unit & Integration Tests ครอบคลุม 100%
-│   ├── test_calculators.py
-│   ├── test_knowledge_base.py
-│   ├── test_agents.py
-│   └── test_orchestrator.py
-├── examples/                      # ตัวอย่างการรันจริงใน 4 สถานการณ์คลินิก
-│   ├── rct_cardiology_protocol.py
-│   ├── diagnostic_biomarker.py
-│   ├── rwe_target_trial_ckd.py
-│   └── critical_paper_appraisal.py
-└── requirements.txt
+├── core/                          # แกนหลักระบบ Python
+├── agents/                        # คลาสเอเจนต์ Python
+├── tools/                         # เครื่องมือสำหรับ Python
+├── cli/main.py                    # Python CLI Interface (Rich UI)
+├── tests/                         # ชุด Python Unit Tests (17 tests)
+└── requirements.txt               # สำหรับ Python users
 ```
 
 ---
 
-## ⚡ 3. วิธีการติดตั้งและใช้งาน (Installation & Quickstart)
+## 🧪 5. การทดสอบระบบ (Test Suite Verification)
 
-### 3.1 การติดตั้ง
 ```bash
-cd /Users/tonkla/.gemini/antigravity/scratch/medical_research_multiagent
-pip install -r requirements.txt
+# ทดสอบฝั่ง Node.js
+npm test
+
+# ทดสอบฝั่ง Python
+python3 -m unittest discover -s tests
 ```
-
-### 3.2 การรันผ่าน CLI
-```bash
-# 1. รันคำถามการวิจัยทางคลินิกแบบอัตโนมัติ
-python cli/main.py "In adult patients with heart failure, does dapagliflozin reduce cardiovascular death compared to standard of care?"
-
-# 2. รันการประเมินชุดตรวจวินิจฉัย (พร้อมพารามิเตอร์ตาราง 2x2)
-python cli/main.py "Diagnostic accuracy of point-of-care troponin for acute myocardial infarction" \
-  --tp 190 --fp 15 --fn 10 --tn 285 --pre-test-prob 0.25
-
-# 3. รันโหมด Interactive สัมภาษณ์ทีละขั้นตอน
-python cli/main.py --interactive
-```
-
-### 3.3 การเรียกใช้ในโค้ด Python
-```python
-from core.engine import MedicalResearchMultiAgentOrchestrator
-
-orchestrator = MedicalResearchMultiAgentOrchestrator()
-state = orchestrator.run_pipeline(
-    query="In adult type 2 diabetes patients, does semaglutide reduce stroke compared with placebo?"
-)
-
-# ดึงผลลัพธ์
-print(state.pico)
-print(state.study_design)
-print(state.biostats_plan)
-print(state.markdown_report)
-```
-
----
-
-## 🧪 4. การทดสอบระบบ (Test Suite Verification)
-
-รันชุดทดสอบทั้งหมดเพื่อยืนยันความถูกต้องของคณิตศาสตร์สถิติและเวิร์กโฟลว์ของเอเจนต์:
-```bash
-PYTHONPATH=. python3 -m unittest discover -s tests
-```
-*ผลลัพธ์: ผ่านการทดสอบทั้งหมด 17 รายการ (100% Pass Rate).*
+*ผลลัพธ์: ผ่านการทดสอบทั้งหมด 100% ทั้งฝั่ง Node.js และ Python*
 
 ---
 
