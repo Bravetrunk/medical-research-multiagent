@@ -1,0 +1,29 @@
+---
+description: Automatically apply clinical epidemiology, biostatistics, and trial design rules when discussing medical research protocols, sample size, or diagnostic assays.
+globs: ["**/*.md", "**/*.ts", "**/*.js", "**/*.py"]
+alwaysApply: false
+---
+
+# Medical Research & Clinical Methodology Rule (MDC)
+
+When handling clinical research questions, protocol drafting, biostatistics calculations, or epidemiological appraisals:
+
+1. **Protocol Generation**:
+   Use the multi-agent orchestrator:
+   ```bash
+   npx -y github:Bravetrunk/medical-research-multiagent "<Clinical Question>"
+   ```
+
+2. **Biostatistics & Sample Size Standards**:
+   - Two-arm binary superiority RCT: Daniel Biostatistics formula with Z_alpha/2 (1.96) and Z_beta (0.842 for 80% power).
+   - Never report raw sample size without adjusting for anticipated loss to follow-up: $N_{\text{adj}} = N / (1 - \text{loss})$.
+
+3. **Diagnostic Test Accuracy**:
+   - Compute full 2x2 matrix: Sensitivity, Specificity, PPV, NPV, LR+, LR-.
+   - Apply SnNout (rule OUT when Sensitivity $\ge 0.90$) and SpPin (rule IN when Specificity $\ge 0.90$).
+   - Compute Bayesian prior $\to$ likelihood ratio $\to$ posterior probability.
+
+4. **Causal Inference & Observational Cohorts**:
+   - Construct Directed Acyclic Graphs (DAGs).
+   - Distinguish Confounders (backdoor path $\to$ must adjust), Mediators (causal path $\to$ do not adjust for total effect), and Colliders (conditioning opens spurious association $\to$ must NOT adjust).
+   - Emulate Target Trial for EHR: synchronize time zero, specify eligibility at time zero, clone-censor-weight for dynamic regimens.

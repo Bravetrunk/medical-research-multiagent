@@ -1,0 +1,73 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Medical Research Multi-Agent API",
+    "description": "API for clinical epidemiology, biostatistics sample size calculations, diagnostic accuracy evaluations, and clinical trial protocol generation.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.example.com"
+    }
+  ],
+  "paths": {
+    "/calculate/rct-sample-size": {
+      "post": {
+        "summary": "Calculate Two-Arm Superiority RCT Sample Size",
+        "operationId": "calculateSampleSizeRCT",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "p1": { "type": "number", "description": "Control group event rate (0-1)" },
+                  "p2": { "type": "number", "description": "Intervention group event rate (0-1)" },
+                  "alpha": { "type": "number", "default": 0.05 },
+                  "power": { "type": "number", "default": 0.80 },
+                  "dropout_rate": { "type": "number", "default": 0.15 }
+                },
+                "required": ["p1", "p2"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sample size result per arm and total inflation"
+          }
+        }
+      }
+    },
+    "/calculate/diagnostic-matrix": {
+      "post": {
+        "summary": "Calculate 2x2 Diagnostic Testing Metrics and Bayesian Post-Test Probability",
+        "operationId": "calculateDiagnosticMatrix",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tp": { "type": "number" },
+                  "fp": { "type": "number" },
+                  "fn": { "type": "number" },
+                  "tn": { "type": "number" },
+                  "pre_test_prob": { "type": "number", "description": "Prevalence / prior probability (0-1)" }
+                },
+                "required": ["tp", "fp", "fn", "tn"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sensitivity, Specificity, LR+, LR-, SnNout/SpPin, and Post-Test Probabilities"
+          }
+        }
+      }
+    }
+  }
+}

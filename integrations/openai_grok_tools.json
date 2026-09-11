@@ -1,0 +1,96 @@
+[
+  {
+    "type": "function",
+    "function": {
+      "name": "design_clinical_protocol",
+      "description": "Run the 7-agent DAG for medical research methodology: generates publication-grade clinical trial protocols, PICO formulation, study design architecture, biostatistics sample size, causal DAG, and EQUATOR compliance.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string",
+            "description": "The clinical research question or hypothesis (e.g. 'Can topical calcipotriol reduce skin cancer risk in renal transplant recipients?')"
+          },
+          "tp": { "type": "number", "description": "True Positives (optional, for diagnostic testing)" },
+          "fp": { "type": "number", "description": "False Positives (optional)" },
+          "fn": { "type": "number", "description": "False Negatives (optional)" },
+          "tn": { "type": "number", "description": "True Negatives (optional)" },
+          "pre_test_prob": { "type": "number", "description": "Pre-test probability or prevalence (0 to 1, optional)" }
+        },
+        "required": ["question"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calculate_sample_size_rct",
+      "description": "Calculate exact sample size for a two-arm parallel superiority randomized controlled trial (binary proportions) based on Daniel Biostatistics.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "p1": { "type": "number", "description": "Control arm event proportion (e.g. 0.35)" },
+          "p2": { "type": "number", "description": "Intervention arm event proportion (e.g. 0.15)" },
+          "alpha": { "type": "number", "description": "Two-sided alpha (default: 0.05)" },
+          "power": { "type": "number", "description": "Statistical power 1 - beta (default: 0.80)" },
+          "dropout_rate": { "type": "number", "description": "Anticipated dropout rate (default: 0.15)" }
+        },
+        "required": ["p1", "p2"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calculate_sample_size_means",
+      "description": "Calculate sample size for comparing two independent continuous means based on Daniel Biostatistics.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "mu1": { "type": "number", "description": "Anticipated mean in group 1" },
+          "mu2": { "type": "number", "description": "Anticipated mean in group 2" },
+          "sigma": { "type": "number", "description": "Pooled standard deviation" },
+          "alpha": { "type": "number", "description": "Two-sided alpha (default: 0.05)" },
+          "power": { "type": "number", "description": "Power 1 - beta (default: 0.80)" },
+          "dropout_rate": { "type": "number", "description": "Loss to follow-up (default: 0.15)" }
+        },
+        "required": ["mu1", "mu2", "sigma"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calculate_diagnostic_matrix",
+      "description": "Calculate diagnostic accuracy metrics: Sensitivity, Specificity, PPV, NPV, LR+, LR-, Youden Index, SnNout/SpPin, and Bayesian Fagan Nomogram post-test probabilities.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "tp": { "type": "number", "description": "True Positives" },
+          "fp": { "type": "number", "description": "False Positives" },
+          "fn": { "type": "number", "description": "False Negatives" },
+          "tn": { "type": "number", "description": "True Negatives" },
+          "pre_test_prob": { "type": "number", "description": "Pre-test probability / prevalence (0 to 1, optional)" }
+        },
+        "required": ["tp", "fp", "fn", "tn"]
+      }
+    }
+  },
+  {
+    "type": "function",
+    "function": {
+      "name": "calculate_epidemiologic_association",
+      "description": "Calculate 2x2 table epidemiological measures: Relative Risk (RR), Odds Ratio (OR), Absolute Risk Reduction (ARR), and Number Needed to Treat (NNT).",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "exposed_cases": { "type": "number", "description": "Exposed cases (a)" },
+          "exposed_non_cases": { "type": "number", "description": "Exposed non-cases (b)" },
+          "unexposed_cases": { "type": "number", "description": "Unexposed cases (c)" },
+          "unexposed_non_cases": { "type": "number", "description": "Unexposed non-cases (d)" }
+        },
+        "required": ["exposed_cases", "exposed_non_cases", "unexposed_cases", "unexposed_non_cases"]
+      }
+    }
+  }
+]

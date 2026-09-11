@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "medical-research": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "github:Bravetrunk/medical-research-multiagent",
+        "medical-research-mcp"
+      ],
+      "env": {}
+    }
+  }
+}

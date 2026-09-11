@@ -58,7 +58,45 @@ python cli/main.py "Your clinical research question"
 
 ---
 
-## 🏗️ 3. สถาปัตยกรรม Multi-Agent (Multi-Agent Architecture)
+## 🤖 3. การนำไปใช้งานร่วมกับ AI Agents & IDEs (Claude Code, Antigravity, Grok, Codex, Cursor)
+
+คุณสามารถนำระบบ Medical Research Multi-Agent ไปติดตั้งเป็น **Native Tool / MCP Server** ใน AI Agents ชั้นนำได้ทันที:
+
+### 🔹 Claude Code (Anthropic CLI)
+เชื่อมต่อผ่าน Model Context Protocol (MCP) ด้วยคำสั่งเดียว:
+```bash
+claude mcp add medical-research -- npx -y github:Bravetrunk/medical-research-multiagent medical-research-mcp
+```
+*(ใน Repo มีไฟล์ [`CLAUDE.md`](./CLAUDE.md) พร้อมใช้งาน ทำให้ Claude Code รันคำนวณและตรวจสอบระเบียบวิธีวิจัยได้อัตโนมัติ)*
+
+### 🔹 Google Antigravity (AGY)
+ติดตั้งเป็น Antigravity Skill และ MCP Server:
+```bash
+mkdir -p ~/.gemini/config/skills/medical-research-methodology
+cp skill/SKILL.md ~/.gemini/config/skills/medical-research-methodology/SKILL.md
+```
+Antigravity จะตรวจจับคำถามด้าน Clinical Epidemiology, RCT, Biostatistics และเรียกใช้เอเจนต์อัตโนมัติ
+
+### 🔹 Cursor & Windsurf
+1. ใน **Cursor Settings** $\to$ **Features** $\to$ **MCP** $\to$ **+ Add New MCP Server**:
+   - Name: `medical-research`
+   - Command: `npx -y github:Bravetrunk/medical-research-multiagent medical-research-mcp`
+2. มีไฟล์ [`.cursorrules`](./.cursorrules), [`.cursor/rules/medical-research.mdc`](./.cursor/rules/medical-research.mdc) และ [`.windsurfrules`](./.windsurfrules) รวมอยู่ใน Repo เรียบร้อยแล้ว
+
+### 🔹 xAI Grok & OpenAI Codex / ChatGPT
+- **Function Calling API**: รองรับทั้ง Grok API (`api.x.ai/v1`) และ OpenAI GPT-4o / Codex ผ่านไฟล์ Schema [`integrations/openai_grok_tools.json`](./integrations/openai_grok_tools.json) และตัวอย่างโค้ดรันได้จริงใน [`integrations/openai_grok_agent.py`](./integrations/openai_grok_agent.py)
+- **ChatGPT Custom GPT Action**: นำไฟล์ [`integrations/openapi.json`](./integrations/openapi.json) ไปวางในช่อง Actions ของ GPT Builder ได้ทันที
+
+### 🔹 Agent Frameworks (CrewAI, LangGraph, Vercel AI SDK)
+- CrewAI: [`integrations/crewai_tool.py`](./integrations/crewai_tool.py)
+- LangChain / LangGraph: [`integrations/langchain_tools.py`](./integrations/langchain_tools.py)
+- Vercel AI SDK (Next.js): [`integrations/vercel_ai_tools.ts`](./integrations/vercel_ai_tools.ts)
+
+📖 **อ่านคู่มือการตั้งค่าและตัวอย่างโค้ดฉบับเต็มได้ที่: [`docs/AGENTS_INTEGRATION_GUIDE.md`](./docs/AGENTS_INTEGRATION_GUIDE.md)**
+
+---
+
+## 🏗️ 4. สถาปัตยกรรม Multi-Agent (Multi-Agent Architecture)
 
 ระบบประกอบด้วย 7 บทบาทเอเจนต์เฉพาะทาง ทำงานร่วมกันเป็นกราฟวงจรแบบมีทิศทาง (Directed Acyclic Workflow) ผ่าน **Research State Blackboard**:
 
@@ -104,38 +142,48 @@ graph TD
 
 ---
 
-## 📁 4. โครงสร้างโฟลเดอร์โครงการ (Repository Structure)
+## 📁 5. โครงสร้างโฟลเดอร์โครงการ (Repository Structure)
 
 ```
 medical_research_multiagent/
-├── package.json                   # การตั้งค่าสำหรับ npm install และ bin CLI
+├── package.json                   # การตั้งค่าสำหรับ npm install และ bin CLI/MCP
+├── CLAUDE.md                      # คำแนะนำและกฎสำหรับ Claude Code
+├── .cursorrules                   # กฎสำหรับ Cursor AI Agent
+├── .cursor/rules/                 # MDC Rule สำหรับ Cursor
+├── .windsurfrules                 # กฎสำหรับ Windsurf Cascade
 ├── bin/
-│   └── cli.js                     # Node.js CLI executable (zero dependencies)
+│   ├── cli.js                     # Node.js CLI executable (zero dependencies)
+│   └── mcp-server.js              # Model Context Protocol (MCP) stdio server
 ├── lib/                           # Native Node.js Multi-Agent Implementation
 │   ├── calculators.js             # Biostats & Diagnostic calculators (Node.js)
 │   ├── agents.js                  # 7 Agents implementation in JavaScript
 │   └── engine.js                  # Node.js Orchestrator & State
+├── integrations/                  # เครื่องมือเชื่อมต่อ AI Agents & Frameworks
+│   ├── mcp_config.json            # Config template สำหรับ MCP clients
+│   ├── openai_grok_tools.json     # Function Calling Schema สำหรับ OpenAI/Grok
+│   ├── openai_grok_agent.py       # สคริปต์ตัวอย่างเรียกผ่าน Python API
+│   ├── openai_grok_agent.js       # สคริปต์ตัวอย่างเรียกผ่าน Node.js API
+│   ├── openapi.json               # OpenAPI 3.1 Spec สำหรับ ChatGPT Custom GPTs
+│   ├── crewai_tool.py             # Tool Wrapper สำหรับ CrewAI
+│   ├── langchain_tools.py         # Tool Wrappers สำหรับ LangChain/LangGraph
+│   └── vercel_ai_tools.ts         # TypeScript Tools สำหรับ Vercel AI SDK
+├── docs/
+│   └── AGENTS_INTEGRATION_GUIDE.md# คู่มือเชื่อมต่อ AI Agents ฉบับสมบูรณ์
+├── skill/                         # Antigravity Skill definition (SKILL.md)
 ├── index.js                       # CommonJS Entrypoint
 ├── index.d.ts                     # TypeScript Type Definitions
 ├── test.js                        # Node.js Test Runner (100% Pass)
 ├── knowledge/                     # คลังความรู้ที่สกัดมาจาก Notion
-│   ├── clinical_epidemiology.json # ระบาดวิทยาคลินิก รูปแบบการวิจัย อคติ เกณฑ์ PICO
-│   ├── biostatistics_daniel.json  # สูตรสถิติและการเลือกการทดสอบ (Daniel 9th ed.)
-│   ├── diagnostic_performance.json# ตัวชี้วัด 2x2, LR, Fagan Nomogram, Cutoff
-│   ├── causal_inference_rwe.json  # Pearl Causal Ladder, DAG, Target Trial Emulation
-│   ├── reporting_guidelines.json  # CONSORT, STROBE, PRISMA, STARD, CASP
-│   └── notion_source_dump.md      # ข้อความฉบับเต็ม 815 KB จาก Notion
 ├── core/                          # แกนหลักระบบ Python
 ├── agents/                        # คลาสเอเจนต์ Python
-├── tools/                         # เครื่องมือสำหรับ Python
 ├── cli/main.py                    # Python CLI Interface (Rich UI)
-├── tests/                         # ชุด Python Unit Tests (17 tests)
+├── tests/                         # ชุด Python Unit Tests
 └── requirements.txt               # สำหรับ Python users
 ```
 
 ---
 
-## 🧪 5. การทดสอบระบบ (Test Suite Verification)
+## 🧪 6. การทดสอบระบบ (Test Suite Verification)
 
 ```bash
 # ทดสอบฝั่ง Node.js

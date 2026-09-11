@@ -14,30 +14,30 @@ The system is powered by a 7-agent DAG architecture located at `/Users/tonkla/.g
 
 When the user asks to design a clinical trial, formulate a PICO question, calculate sample size, evaluate a diagnostic assay, or appraise a medical study:
 
-### 1. Execute via CLI
-Run the multi-agent CLI tool directly:
+### 1. Execute via Node.js / npx (Zero Dependencies, Fastest)
+Run directly via Node.js or npx:
 
 ```bash
-python /Users/tonkla/.gemini/antigravity/scratch/medical_research_multiagent/cli/main.py "<User Clinical Question>" \
-  --output protocol_report.md
+# Using Node directly from repo
+node /Users/tonkla/.gemini/antigravity/scratch/medical_research_multiagent/bin/cli.js "<User Clinical Question>"
+
+# Or using npx from GitHub
+npx -y github:Bravetrunk/medical-research-multiagent "<User Clinical Question>"
 ```
 
 ### 2. For Diagnostic Testing Evaluation
 Include the 2x2 contingency table values and pre-test probability:
 
 ```bash
-python /Users/tonkla/.gemini/antigravity/scratch/medical_research_multiagent/cli/main.py "<Diagnostic Research Question>" \
-  --tp <TP> --fp <FP> --fn <FN> --tn <TN> --pre-test-prob <Prevalence> \
-  --output diagnostic_appraisal.md
+node /Users/tonkla/.gemini/antigravity/scratch/medical_research_multiagent/bin/cli.js "<Diagnostic Research Question>" \
+  --tp <TP> --fp <FP> --fn <FN> --tn <TN> --pre-test-prob <Prevalence>
 ```
 
-### 3. For Interactive Interview Mode
-Launch the interactive wizard:
-
+### 3. Execute via Python CLI
 ```bash
-python /Users/tonkla/.gemini/antigravity/scratch/medical_research_multiagent/cli/main.py --interactive
+python3 /Users/tonkla/.gemini/antigravity/scratch/medical_research_multiagent/cli/main.py "<User Clinical Question>" \
+  --output protocol_report.md
 ```
 
 ### 4. Present Findings
-1. Read the generated markdown protocol using `view_file`.
-2. Present the structured PICO, Study Design, Biostatistics/Sample Size plan, Causal DAG analysis, and Reporting guidelines compliance to the user.
+1. Present the structured PICO, Study Design, Biostatistics/Sample Size plan (with 10-15% dropout inflation), Causal DAG analysis, and Reporting guidelines compliance (CONSORT, STROBE, STARD) to the user.
