@@ -1,0 +1,151 @@
+{
+  "module": "Clinical Epidemiology & Research Methodology",
+  "source": "Topic 3, Topic 4, Fletcher (Clinical Epidemiology: The Essentials)",
+  "instructor": "Dr. Amarit Tansawet (DAB Unit, MDCU)",
+  "pico_framework": {
+    "description": "Evidence-based clinical question formulation",
+    "elements": {
+      "P": "Patient, Population, or Problem (characteristics, demographics, setting)",
+      "I": "Intervention, Exposure, or Test (treatment, diagnostic assay, prognostic factor)",
+      "C": "Comparison or Control (placebo, standard of care, active comparator, reference standard)",
+      "O": "Patient-Important Outcome (mortality, morbidity, quality of life, biomarker, adverse events)"
+    },
+    "question_types": {
+      "Therapy": "Assesses effect of treatment on patient outcomes (Best design: RCT)",
+      "Harm": "Assesses potential toxic or adverse effects (Best design: Cohort or Case-Control)",
+      "Diagnosis": "Assesses accuracy of a test vs reference standard (Best design: Cross-sectional diagnostic accuracy)",
+      "Prognosis": "Assesses future health trajectory over time (Best design: Inception Cohort study)",
+      "Etiology": "Investigates risk factors and disease origins (Best design: Cohort or Case-Control)"
+    },
+    "finer_criteria": [
+      "Feasible",
+      "Interesting",
+      "Novel",
+      "Ethical",
+      "Relevant"
+    ]
+  },
+  "study_designs": {
+    "RCT": {
+      "name": "Randomized Controlled Trial",
+      "hierarchy_level": "Highest primary study evidence for therapy",
+      "types": [
+        "Parallel",
+        "Crossover",
+        "Factorial (2x2)",
+        "Cluster",
+        "Pragmatic vs Explanatory"
+      ],
+      "strengths": [
+        "Minimizes selection bias via randomization",
+        "Controls both measured and unmeasured confounding",
+        "High internal validity"
+      ],
+      "limitations": [
+        "Expensive",
+        "Strict inclusion/exclusion limits generalizability (external validity)",
+        "Not ethical for harm/etiology"
+      ],
+      "critical_features": [
+        "Random allocation sequence generation",
+        "Allocation concealment (SNOSE)",
+        "Blinding (Double-blind)",
+        "Intention-to-treat (ITT) analysis"
+      ]
+    },
+    "Cohort": {
+      "name": "Cohort Study (Prospective / Retrospective)",
+      "hierarchy_level": "Observational study preserving temporality",
+      "strengths": [
+        "Preserves temporal sequence (Exposure precedes Outcome)",
+        "Direct calculation of Incidence, Cumulative Incidence, Risk Ratio (RR)",
+        "Good for rare exposures"
+      ],
+      "limitations": [
+        "Vulnerable to confounding by indication",
+        "Loss to follow-up (attrition bias)",
+        "Inefficient for rare diseases with long latency"
+      ],
+      "measures": [
+        "Cumulative Incidence",
+        "Incidence Rate (Person-time)",
+        "Relative Risk (RR)",
+        "Hazard Ratio (HR)",
+        "Attributable Risk (AR)"
+      ]
+    },
+    "Case-Control": {
+      "name": "Case-Control Study",
+      "hierarchy_level": "Observational retrospective outcome-first design",
+      "strengths": [
+        "Efficient for rare diseases or long latency periods",
+        "Quick and cost-effective",
+        "Evaluates multiple exposures"
+      ],
+      "limitations": [
+        "Cannot measure incidence directly",
+        "Vulnerable to recall bias and selection bias (Berkson bias)",
+        "Temporality sometimes uncertain"
+      ],
+      "measures": [
+        "Odds Ratio (OR)",
+        "Approximates RR under Rare Disease Assumption (< 10% or < 5%)"
+      ]
+    },
+    "Cross-Sectional": {
+      "name": "Cross-Sectional Study (Prevalence Study)",
+      "strengths": [
+        "Assesses prevalence and burden of disease",
+        "Generates hypotheses rapidly"
+      ],
+      "limitations": [
+        "Cannot establish temporality (Chicken-and-egg problem)",
+        "Prevalence-Incidence (Neyman) bias"
+      ]
+    }
+  },
+  "biases": {
+    "Selection_Bias": {
+      "definition": "Systematic differences between those selected into study and those not",
+      "types": [
+        "Berkson bias (hospital admission rate bias)",
+        "Healthy worker effect",
+        "Loss to follow-up / Attrition bias",
+        "Volunteer / Self-selection bias"
+      ]
+    },
+    "Information_Bias": {
+      "definition": "Flaws in measuring exposure, covariate, or outcome",
+      "types": [
+        "Recall bias",
+        "Observer / Ascertainment bias",
+        "Hawthorne effect",
+        "Misclassification (Differential vs Non-differential)"
+      ]
+    },
+    "Confounding": {
+      "definition": "A third variable associated with exposure and independent cause of outcome, not in causal pathway",
+      "control_in_design": [
+        "Randomization",
+        "Restriction",
+        "Matching"
+      ],
+      "control_in_analysis": [
+        "Stratification (Mantel-Haenszel)",
+        "Multivariable Regression",
+        "Propensity Score Matching / IPTW"
+      ]
+    }
+  },
+  "bradford_hill_criteria": [
+    "Strength of Association",
+    "Consistency",
+    "Specificity",
+    "Temporality (Essential)",
+    "Biological Gradient (Dose-Response)",
+    "Plausibility",
+    "Coherence",
+    "Experiment",
+    "Analogy"
+  ]
+}

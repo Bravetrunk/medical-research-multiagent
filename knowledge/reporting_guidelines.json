@@ -1,0 +1,16 @@
+{
+  "module": "Critical Appraisal & Reporting Guidelines",
+  "source": "Topic 4 (Research Methodology & Medical Paper Appraisal)",
+  "reporting_checklists": {
+    "CONSORT": "Consolidated Standards of Reporting Trials (For RCTs: 25-item checklist, flow diagram)",
+    "STROBE": "Strengthening the Reporting of Observational Studies in Epidemiology (For Cohort, Case-Control, Cross-sectional: 22 items)",
+    "PRISMA": "Preferred Reporting Items for Systematic Reviews and Meta-Analyses (27 items, flow diagram)",
+    "STARD": "Standards for Reporting Diagnostic Accuracy Studies (30 items)",
+    "TRIPOD": "Transparent Reporting of a multivariable prediction model for Individual Prognosis Or Diagnosis (22 items)"
+  },
+  "casp_appraisal_framework": {
+    "Section_A": "Are the results of the study valid? (Randomization, allocation concealment, blinding, baseline balance, complete follow-up)",
+    "Section_B": "What are the results? (Magnitude of effect, RR/OR/HR, precision with 95% CI, p-values)",
+    "Section_C": "Will the results help locally? (Applicability to local patients, all clinical outcomes considered, benefits vs harms/costs)"
+  }
+}

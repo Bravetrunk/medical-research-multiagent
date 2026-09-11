@@ -1,0 +1,51 @@
+{
+  "module": "Diagnostic Studies & Performance Matrices",
+  "source": "Topic 8 & Fletcher Chapter 3",
+  "contingency_table": {
+    "TP": "True Positive (Disease +, Test +)",
+    "FP": "False Positive (Disease -, Test +)",
+    "FN": "False Negative (Disease +, Test -)",
+    "TN": "True Negative (Disease -, Test -)"
+  },
+  "metrics": {
+    "Sensitivity": {
+      "formula": "TP / (TP + FN)",
+      "meaning": "Ability to correctly identify diseased patients",
+      "rule": "SnNout: High Sensitivity, Negative test rules OUT disease"
+    },
+    "Specificity": {
+      "formula": "TN / (TN + FP)",
+      "meaning": "Ability to correctly identify non-diseased individuals",
+      "rule": "SpPin: High Specificity, Positive test rules IN disease"
+    },
+    "PPV": {
+      "formula": "TP / (TP + FP)",
+      "meaning": "Probability of disease given positive test",
+      "prevalence_dependency": "Strongly decreases as disease prevalence decreases"
+    },
+    "NPV": {
+      "formula": "TN / (TN + FN)",
+      "meaning": "Probability of no disease given negative test",
+      "prevalence_dependency": "Increases as disease prevalence decreases"
+    },
+    "Likelihood_Ratio_Positive_LR_plus": {
+      "formula": "Sensitivity / (1 - Specificity)",
+      "clinical_utility": "> 10 very strong rule-in, 5-10 moderate, 2-5 small, 1 uninformative"
+    },
+    "Likelihood_Ratio_Negative_LR_minus": {
+      "formula": "(1 - Sensitivity) / Specificity",
+      "clinical_utility": "< 0.1 very strong rule-out, 0.1-0.2 moderate, 0.2-0.5 small, 1 uninformative"
+    },
+    "ROC_AUC": {
+      "description": "Plot of Sensitivity (y) vs 1-Specificity (x) across all thresholds",
+      "interpretation": "> 0.9 Outstanding, 0.8-0.9 Excellent, 0.7-0.8 Acceptable, 0.5 Chance"
+    },
+    "Youden_Index_J": "Sensitivity + Specificity - 1 (Optimal cutoff balancing Sens and Spec)"
+  },
+  "bayesian_nomogram": {
+    "step_1": "Pre-test Odds = Pre-test Probability / (1 - Pre-test Probability)",
+    "step_2": "Post-test Odds = Pre-test Odds * Likelihood Ratio",
+    "step_3": "Post-test Probability = Post-test Odds / (1 + Post-test Odds)",
+    "fagan_nomogram": "Graphical tool aligning Pre-test Probability, LR, and Post-test Probability"
+  }
+}

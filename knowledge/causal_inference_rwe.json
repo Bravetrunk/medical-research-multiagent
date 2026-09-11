@@ -1,0 +1,62 @@
+{
+  "module": "Causal Inference and Real-World Evidence",
+  "source": "Topic 9 (RWD/RWE, Pearl DAGs, Potential Outcomes)",
+  "pearl_causal_hierarchy": {
+    "Rung_1_Association": {
+      "question": "What is? (Seeing)",
+      "notation": "P(Y|X)",
+      "tool": "Standard ML, Regression, Correlation"
+    },
+    "Rung_2_Intervention": {
+      "question": "What if we do? (Doing)",
+      "notation": "P(Y|do(X))",
+      "tool": "RCT, Policy intervention, Backdoor adjustment"
+    },
+    "Rung_3_Counterfactuals": {
+      "question": "What if we had acted differently? (Imagining/Retrospection)",
+      "notation": "P(Y_x | x_prime, y_prime)",
+      "tool": "Structural Causal Models (SCM), Personalized Medicine"
+    }
+  },
+  "dag_structures": {
+    "Fork_Confounder": {
+      "structure": "X <- C -> Y",
+      "action": "Must adjust/condition on C to close backdoor path"
+    },
+    "Chain_Mediator": {
+      "structure": "X -> M -> Y",
+      "action": "Do NOT condition on M when estimating total causal effect of X on Y"
+    },
+    "Collider_Inverted_Fork": {
+      "structure": "X -> C <- Y",
+      "action": "NEVER condition on C; conditioning on a collider OPENS a spurious non-causal path (Berkson/Selection bias)!"
+    }
+  },
+  "potential_outcomes_framework": {
+    "individual_treatment_effect": "ITE_i = Y_i(1) - Y_i(0)",
+    "average_treatment_effect": "ATE = E[Y(1) - Y(0)]",
+    "fundamental_problem": "We can never observe both potential outcomes for the same individual at the same time",
+    "identifiability_assumptions": [
+      "Exchangeability (Conditional ignorability / No unmeasured confounding): Y(1), Y(0) independent of T given X",
+      "Positivity (Common Support): 0 < P(T=1|X) < 1 for all X",
+      "SUTVA (Stable Unit Treatment Value Assumption): No interference between units and no variation in treatment versions"
+    ]
+  },
+  "target_trial_emulation": {
+    "concept": "Hernan & Robins framework for conducting valid causal inference using observational RWD",
+    "key_components": [
+      "Eligibility criteria: Identical to hypothetical RCT",
+      "Treatment strategies: Clearly defined interventions (e.g. Initiators vs Active comparators)",
+      "Assignment procedures: Emulated at Time Zero (prevents immortal time bias)",
+      "Follow-up period: Starts at Time Zero until event, death, or loss to follow-up",
+      "Outcome definition: Blinded or objective endpoint ascertainment",
+      "Causal contrasts: Intention-to-treat analog (ITT) vs Per-protocol analog",
+      "Analysis plan: PSM, IPTW, or G-methods"
+    ],
+    "biases_mitigated": [
+      "Immortal time bias",
+      "Prevalent user bias",
+      "Confounding by indication"
+    ]
+  }
+}

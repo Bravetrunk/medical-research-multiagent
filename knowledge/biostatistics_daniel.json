@@ -1,0 +1,55 @@
+{
+  "module": "Biostatistics and Clinical Inference",
+  "source": "Daniel (Biostatistics 9th ed.) & Topic 3 & Topic 8",
+  "hypothesis_testing": {
+    "null_hypothesis_H0": "No difference / no association",
+    "alternative_hypothesis_Ha": "True difference / association exists",
+    "type_I_error_alpha": "Rejecting true H0 (False Positive), standard = 0.05",
+    "type_II_error_beta": "Failing to reject false H0 (False Negative), standard = 0.20 or 0.10",
+    "statistical_power": "1 - beta (Probability of detecting a true effect, standard = 80% or 90%)",
+    "p_value_definition": "Probability of observing a test statistic as extreme as, or more extreme than, the observed value under H0. Does NOT equal P(H0 is true)!"
+  },
+  "test_selection_matrix": {
+    "continuous_independent_2_groups": {
+      "parametric_normal": "Two-sample Student t-test",
+      "non_parametric_skewed": "Mann-Whitney U test / Wilcoxon Rank-Sum test"
+    },
+    "continuous_paired_2_groups": {
+      "parametric_normal": "Paired Student t-test",
+      "non_parametric_skewed": "Wilcoxon Signed-Rank test"
+    },
+    "continuous_k_groups": {
+      "parametric_normal": "One-Way Analysis of Variance (ANOVA) + Post-hoc (Tukey / Bonferroni)",
+      "non_parametric_skewed": "Kruskal-Wallis H test"
+    },
+    "categorical_2x2": {
+      "expected_all_ge_5": "Pearson Chi-Square test",
+      "expected_any_lt_5": "Fisher Exact test",
+      "paired_proportions": "McNemar test"
+    },
+    "time_to_event": {
+      "univariable_curve": "Kaplan-Meier estimator + Log-Rank test",
+      "multivariable_hazard": "Cox Proportional Hazards Regression"
+    },
+    "multivariable_regression": {
+      "continuous_outcome": "Multiple Linear Regression",
+      "binary_outcome": "Multivariable Logistic Regression (produces Adjusted OR)",
+      "count_rate_outcome": "Poisson / Negative Binomial Regression"
+    }
+  },
+  "sample_size_formulas": {
+    "single_mean": "n = (Z^2 * sigma^2) / d^2",
+    "single_proportion": "n = (Z^2 * p * (1-p)) / d^2",
+    "two_means_comparison": "n = 2 * (Z_alpha2 + Z_beta)^2 * sigma^2 / (mu1 - mu2)^2",
+    "two_proportions_comparison": "n = (Z_alpha2 * sqrt(2*p_bar*(1-p_bar)) + Z_beta * sqrt(p1*(1-p1) + p2*(1-p2)))^2 / (p1 - p2)^2",
+    "diagnostic_study": "n = (Z^2 * Sens * (1 - Sens)) / (d^2 * Prevalence)"
+  },
+  "measures_of_effect": {
+    "Risk_Ratio_RR": "[a/(a+b)] / [c/(c+d)]",
+    "Odds_Ratio_OR": "(a*d) / (b*c)",
+    "Absolute_Risk_Reduction_ARR": "Risk_control - Risk_intervention",
+    "Number_Needed_to_Treat_NNT": "1 / ARR",
+    "Attributable_Risk_Percent_AR_pct": "(RR - 1) / RR * 100",
+    "Population_Attributable_Fraction_PAF": "P_pop * (RR - 1) / (1 + P_pop * (RR - 1))"
+  }
+}
