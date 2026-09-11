@@ -1,0 +1,42 @@
+{
+  "name": "medical-research-multiagent",
+  "version": "1.0.0",
+  "description": "Autonomous Multi-Agent AI System for Medical Research & Methodology, grounded on Faculty of Medicine Chulalongkorn University (DAB Unit), Fletcher Clinical Epidemiology, Daniel Biostatistics, and Judea Pearl Causal AI.",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "bin": {
+    "medical-research": "./bin/cli.js",
+    "med-research": "./bin/cli.js"
+  },
+  "scripts": {
+    "test": "node test.js",
+    "start": "node bin/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bravetrunk/medical-research-multiagent.git"
+  },
+  "keywords": [
+    "medical-research",
+    "clinical-epidemiology",
+    "biostatistics",
+    "multiagent",
+    "digital-health",
+    "rwe",
+    "causal-inference",
+    "pico",
+    "consort",
+    "strobe",
+    "stard",
+    "target-trial-emulation"
+  ],
+  "author": "Supanut Chailungka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bravetrunk/medical-research-multiagent/issues"
+  },
+  "homepage": "https://github.com/Bravetrunk/medical-research-multiagent#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
